@@ -1,3 +1,13 @@
+# How To
+## How to get a list of installed Jenkins plugins with name and version pair
+You can retrieve the information using the Jenkins Script Console which is accessible by visiting http://<jenkins-url>/script.
+
+```bash
+Jenkins.instance.pluginManager.plugins.each{ plugin -> 
+  println ("${plugin.getShortName()}:${plugin.getVersion()}")
+}
+```
+
 # Jenkins Master Configuration
 This repo is used to build a customized OpenShift Jenkins 2 image with [source to image (S2I)](https://github.com/openshift/source-to-image). The base OpenShift Jenkins S2I can be found at `registry.access.redhat.com/openshift3/jenkins-2-rhel7`. The resulting image is a Jenkins master, and should be used in a master / slaves architecture. This image is configured to provide slaves as k8s pods via the [k8s Jenkins plugin](https://docs.openshift.com/container-platform/3.5/using_images/other_images/jenkins.html#using-the-jenkins-kubernetes-plug-in-to-run-jobs). Thus, this repo doesn't define any build tools or the like, as they are the responsibility of the slaves.
 
