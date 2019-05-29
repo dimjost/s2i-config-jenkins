@@ -1,0 +1,176 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.32">
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <io.fabric8.jenkins.openshiftsync.BuildConfigProjectProperty plugin="openshift-sync@1.0.37">
+      <uid></uid>
+      <namespace></namespace>
+      <name></name>
+      <resourceVersion></resourceVersion>
+    </io.fabric8.jenkins.openshiftsync.BuildConfigProjectProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.BooleanParameterDefinition>
+          <name>REPLACE_SSH_KEY_IF_EXIST</name>
+          <description>Replace SSH-Keys for technical (GitLab) User if already exist.</description>
+          <defaultValue>false</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <com.sonyericsson.jenkins.plugins.bfa.model.ScannerJobProperty plugin="build-failure-analyzer@1.22.0">
+      <doNotScan>false</doNotScan>
+    </com.sonyericsson.jenkins.plugins.bfa.model.ScannerJobProperty>
+    <com.dabsquared.gitlabjenkins.connection.GitLabConnectionProperty plugin="gitlab-plugin@1.5.12">
+      <gitLabConnection></gitLabConnection>
+    </com.dabsquared.gitlabjenkins.connection.GitLabConnectionProperty>
+    <org.jenkinsci.plugins.gitlablogo.GitlabLogoProperty plugin="gitlab-logo@1.0.3">
+      <repositoryName></repositoryName>
+    </org.jenkinsci.plugins.gitlablogo.GitlabLogoProperty>
+    <org.jenkinsci.plugins.gogs.GogsProjectProperty plugin="gogs-webhook@1.0.14">
+      <gogsSecret></gogsSecret>
+      <gogsUsePayload>false</gogsUsePayload>
+    </org.jenkinsci.plugins.gogs.GogsProjectProperty>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.31">
+      <autoRebuild>false</autoRebuild>
+      <rebuildDisabled>false</rebuildDisabled>
+    </com.sonyericsson.rebuild.RebuildSettings>
+    <hudson.plugins.jira.JiraProjectProperty plugin="jira@3.0.7"/>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.68">
+    <script>import jenkins.model.*
+import com.cloudbees.plugins.credentials.*
+import com.cloudbees.plugins.credentials.common.*
+import com.cloudbees.plugins.credentials.domains.*
+import com.cloudbees.plugins.credentials.impl.*
+import com.cloudbees.jenkins.plugins.sshcredentials.impl.BasicSSHUserPrivateKey;
+import hudson.EnvVars;
+import hudson.slaves.EnvironmentVariablesNodeProperty;
+import hudson.slaves.NodeProperty;
+import hudson.slaves.NodePropertyDescriptor;
+import hudson.util.DescribableList;
+
+node("master") {
+    // boolean replaceSshKeyIfExist = false;
+    String sshKeyPath = "/var/lib/jenkins/id_rsa";
+    String technicalUserName = "cip_build_devops-expert-tech";
+    String technicalUserSshComment = "cip_build_tech@devops-expert.de";
+    boolean sshKeyReplaced = false; // do not change it
+    
+    stage("Set Global Environment Variables") {
+        createGlobalEnvironmentVariables('abc', '123')
+    }
+    
+    stage("Generate SSH-Key") {
+        // wenn ssh-key bereits existiert, dann nur ersetzen wenn replaceSshKeyIfExist=true
+        if( fileExists(sshKeyPath) ) {
+            sshKeyReplaced = (REPLACE_SSH_KEY_IF_EXIST == "true");
+        }
+        else {
+            sshKeyReplaced = true;
+        }
+        
+        if(sshKeyReplaced) {
+            sh """
+                rm -f ${sshKeyPath}*
+                ssh-keygen -t rsa -C '${technicalUserSshComment}' -b 4096 -q -N '' -f ${sshKeyPath}
+            """
+        }
+    }
+    
+    stage("Generate technical User") {
+        if(sshKeyReplaced) {
+            String pivateKey = new File(sshKeyPath).getText('UTF-8')
+            String publicKey = new File(sshKeyPath + '.pub').getText('UTF-8')
+            
+            // parameters
+            def jenkinsMasterKeyParameters = [
+              description:  'Jenkins Master SSH Key',
+              id:           'jenkins-master-key',
+              secret:       '',
+              userName:     technicalUserName,
+              key:          new BasicSSHUserPrivateKey.DirectEntryPrivateKeySource(pivateKey)
+            ]
+    
+            // get Jenkins instance
+            Jenkins jenkins = Jenkins.getInstance()
+            
+            // get credentials domain
+            def domain = Domain.global()
+    
+            // get credentials store
+            def store = jenkins.getExtensionList('com.cloudbees.plugins.credentials.SystemCredentialsProvider')[0].getStore()
+    
+            // define private key
+            def privateKey = new BasicSSHUserPrivateKey(
+                CredentialsScope.GLOBAL,
+                jenkinsMasterKeyParameters.id,
+                jenkinsMasterKeyParameters.userName,
+                jenkinsMasterKeyParameters.key,
+                jenkinsMasterKeyParameters.secret,
+                jenkinsMasterKeyParameters.description
+            )
+            
+            // delete old cridentials
+            list = credentials_for_username(jenkinsMasterKeyParameters.userName)
+            echo "list: " + list
+            for (credentials in list) {
+                store = Jenkins.instance.getExtensionList('com.cloudbees.plugins.credentials.SystemCredentialsProvider')[0].getStore()
+                store.removeCredentials(domain, credentials)
+            }
+    
+            // add credential to store
+            store.addCredentials(domain, privateKey)
+            
+            // save to disk
+            jenkins.save()
+        }
+    }
+    
+    stage("Import public key to GitLab") {
+        if(sshKeyReplaced) {
+            // sh "cat ${sshKeyPath}"
+            sh "cat ${sshKeyPath}.pub"
+            timeout(time:60, unit:'MINUTES') {
+                input message: "Public-Key was imported to GitLab?", ok: "Continue"
+            }
+        }
+    }
+}
+
+def credentials_for_username(String username) {
+    def username_matcher = CredentialsMatchers.withUsername(username)
+    def available_credentials =
+        CredentialsProvider.lookupCredentials(
+            StandardUsernameCredentials.class,
+            Jenkins.getInstance(),
+            hudson.security.ACL.SYSTEM
+        )
+    return CredentialsMatchers.filter(available_credentials, username_matcher)
+}
+
+def createGlobalEnvironmentVariables(String key, String value) {
+    Jenkins instance = Jenkins.getInstance();
+
+    DescribableList<NodeProperty<?>, NodePropertyDescriptor> globalNodeProperties = instance.getGlobalNodeProperties();
+    List<EnvironmentVariablesNodeProperty> envVarsNodePropertyList = globalNodeProperties.getAll(EnvironmentVariablesNodeProperty.class);
+
+    EnvironmentVariablesNodeProperty newEnvVarsNodeProperty = null;
+    EnvVars envVars = null;
+
+    if ( envVarsNodePropertyList == null || envVarsNodePropertyList.size() == 0 ) {
+        newEnvVarsNodeProperty = new hudson.slaves.EnvironmentVariablesNodeProperty();
+        globalNodeProperties.add(newEnvVarsNodeProperty);
+        envVars = newEnvVarsNodeProperty.getEnvVars();
+    } else {
+        envVars = envVarsNodePropertyList.get(0).getEnvVars();
+    }
+    envVars.put(key, value)
+    instance.save()
+}</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <triggers/>
+  <disabled>false</disabled>
+</flow-definition>

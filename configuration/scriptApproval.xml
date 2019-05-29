@@ -29,6 +29,12 @@
     <string>staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods getText java.io.File java.lang.String</string>
     <string>staticMethod org.codehaus.groovy.runtime.ProcessGroovyMethods consumeProcessOutput java.lang.Process java.lang.Appendable java.lang.Appendable</string>
     <string>staticMethod org.codehaus.groovy.runtime.ProcessGroovyMethods waitForOrKill java.lang.Process long</string>
+    <string>staticMethod com.cloudbees.plugins.credentials.CredentialsMatchers withUsername java.lang.String</string>
+    <string>staticField hudson.security.ACL SYSTEM</string>
+    <string>staticMethod com.cloudbees.plugins.credentials.CredentialsProvider lookupCredentials java.lang.Class hudson.model.ItemGroup org.acegisecurity.Authentication</string>
+    <string>staticMethod com.cloudbees.plugins.credentials.CredentialsMatchers filter java.util.List com.cloudbees.plugins.credentials.CredentialsMatcher</string>
+    <string>method com.cloudbees.plugins.credentials.CredentialsStore removeCredentials com.cloudbees.plugins.credentials.domains.Domain com.cloudbees.plugins.credentials.Credentials</string>
+    <string>new hudson.slaves.EnvironmentVariablesNodeProperty hudson.slaves.EnvironmentVariablesNodeProperty$Entry[]</string>
   </approvedSignatures>
   <aclApprovedSignatures/>
   <approvedClasspathEntries/>
