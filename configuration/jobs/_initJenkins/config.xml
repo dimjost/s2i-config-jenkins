@@ -87,7 +87,7 @@ node(&quot;master&quot;) {
             // parameters
             def jenkinsMasterKeyParameters = [
               description:  &apos;Jenkins Master SSH Key&apos;,
-              id:           &apos;jenkins-master-key&apos;,
+              id:           technicalUserName,
               secret:       &apos;&apos;,
               userName:     technicalUserName,
               key:          new BasicSSHUserPrivateKey.DirectEntryPrivateKeySource(pivateKey)
