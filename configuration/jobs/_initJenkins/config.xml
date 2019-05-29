@@ -1,17 +1,15 @@
 <?xml version='1.1' encoding='UTF-8'?>
-<project>
+<flow-definition plugin="workflow-job@2.32">
   <actions/>
-  <description>This job setup Jenkins-Master before running jobs</description>
+  <description></description>
   <keepDependencies>false</keepDependencies>
   <properties>
-  	<jenkins.model.BuildDiscarderProperty>
-      <strategy class="hudson.tasks.LogRotator">
-        <daysToKeep>-1</daysToKeep>
-        <numToKeep>5</numToKeep>
-        <artifactDaysToKeep>-1</artifactDaysToKeep>
-        <artifactNumToKeep>-1</artifactNumToKeep>
-      </strategy>
-    </jenkins.model.BuildDiscarderProperty>
+    <io.fabric8.jenkins.openshiftsync.BuildConfigProjectProperty plugin="openshift-sync@1.0.37">
+      <uid></uid>
+      <namespace></namespace>
+      <name></name>
+      <resourceVersion></resourceVersion>
+    </io.fabric8.jenkins.openshiftsync.BuildConfigProjectProperty>
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
         <hudson.model.BooleanParameterDefinition>
@@ -40,15 +38,7 @@
     </com.sonyericsson.rebuild.RebuildSettings>
     <hudson.plugins.jira.JiraProjectProperty plugin="jira@3.0.7"/>
   </properties>
-  <scm class="hudson.scm.NullSCM"/>
-  <assignedNode>master</assignedNode>
-  <canRoam>false</canRoam>
-  <disabled>false</disabled>
-  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
-  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-  <triggers/>
-  <concurrentBuild>false</concurrentBuild>
-  <definition>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.68">
     <script>import jenkins.model.*
 import com.cloudbees.plugins.credentials.*
 import com.cloudbees.plugins.credentials.common.*
@@ -61,44 +51,44 @@ import hudson.slaves.NodeProperty;
 import hudson.slaves.NodePropertyDescriptor;
 import hudson.util.DescribableList;
 
-node("master") {
+node(&quot;master&quot;) {
     // boolean replaceSshKeyIfExist = false;
-    String sshKeyPath = "/var/lib/jenkins/id_rsa";
-    String technicalUserName = "cip_build_devops-expert-tech";
-    String technicalUserSshComment = "cip_build_tech@devops-expert.de";
+    String sshKeyPath = &quot;/var/lib/jenkins/id_rsa&quot;;
+    String technicalUserName = &quot;cip_build_devops-expert-tech&quot;;
+    String technicalUserSshComment = &quot;cip_build_tech@devops-expert.de&quot;;
     boolean sshKeyReplaced = false; // do not change it
     
-    stage("Set Global Environment Variables") {
-        createGlobalEnvironmentVariables('abc', '123')
+    stage(&quot;Set Global Environment Variables&quot;) {
+        createGlobalEnvironmentVariables(&apos;abc&apos;, &apos;123&apos;)
     }
     
-    stage("Generate SSH-Key") {
+    stage(&quot;Generate SSH-Key&quot;) {
         // wenn ssh-key bereits existiert, dann nur ersetzen wenn replaceSshKeyIfExist=true
         if( fileExists(sshKeyPath) ) {
-            sshKeyReplaced = (REPLACE_SSH_KEY_IF_EXIST == "true");
+            sshKeyReplaced = (REPLACE_SSH_KEY_IF_EXIST == &quot;true&quot;);
         }
         else {
             sshKeyReplaced = true;
         }
         
         if(sshKeyReplaced) {
-            sh """
+            sh &quot;&quot;&quot;
                 rm -f ${sshKeyPath}*
-                ssh-keygen -t rsa -C '${technicalUserSshComment}' -b 4096 -q -N '' -f ${sshKeyPath}
-            """
+                ssh-keygen -t rsa -C &apos;${technicalUserSshComment}&apos; -b 4096 -q -N &apos;&apos; -f ${sshKeyPath}
+            &quot;&quot;&quot;
         }
     }
     
-    stage("Generate technical User") {
+    stage(&quot;Generate technical User&quot;) {
         if(sshKeyReplaced) {
-            String pivateKey = new File(sshKeyPath).getText('UTF-8')
-            String publicKey = new File(sshKeyPath + '.pub').getText('UTF-8')
+            String pivateKey = new File(sshKeyPath).getText(&apos;UTF-8&apos;)
+            String publicKey = new File(sshKeyPath + &apos;.pub&apos;).getText(&apos;UTF-8&apos;)
             
             // parameters
             def jenkinsMasterKeyParameters = [
-              description:  'Jenkins Master SSH Key',
-              id:           'jenkins-master-key',
-              secret:       '',
+              description:  &apos;Jenkins Master SSH Key&apos;,
+              id:           &apos;jenkins-master-key&apos;,
+              secret:       &apos;&apos;,
               userName:     technicalUserName,
               key:          new BasicSSHUserPrivateKey.DirectEntryPrivateKeySource(pivateKey)
             ]
@@ -110,7 +100,7 @@ node("master") {
             def domain = Domain.global()
     
             // get credentials store
-            def store = jenkins.getExtensionList('com.cloudbees.plugins.credentials.SystemCredentialsProvider')[0].getStore()
+            def store = jenkins.getExtensionList(&apos;com.cloudbees.plugins.credentials.SystemCredentialsProvider&apos;)[0].getStore()
     
             // define private key
             def privateKey = new BasicSSHUserPrivateKey(
@@ -124,9 +114,9 @@ node("master") {
             
             // delete old cridentials
             list = credentials_for_username(jenkinsMasterKeyParameters.userName)
-            echo "list: " + list
+            echo &quot;list: &quot; + list
             for (credentials in list) {
-                store = Jenkins.instance.getExtensionList('com.cloudbees.plugins.credentials.SystemCredentialsProvider')[0].getStore()
+                store = Jenkins.instance.getExtensionList(&apos;com.cloudbees.plugins.credentials.SystemCredentialsProvider&apos;)[0].getStore()
                 store.removeCredentials(domain, credentials)
             }
     
@@ -138,12 +128,12 @@ node("master") {
         }
     }
     
-    stage("Import public key to GitLab") {
+    stage(&quot;Import public key to GitLab&quot;) {
         if(sshKeyReplaced) {
-            // sh "cat ${sshKeyPath}"
-            sh "cat ${sshKeyPath}.pub"
-            timeout(time:60, unit:'MINUTES') {
-                input message: "Public-Key was imported to GitLab?", ok: "Continue"
+            // sh &quot;cat ${sshKeyPath}&quot;
+            sh &quot;cat ${sshKeyPath}.pub&quot;
+            timeout(time:60, unit:&apos;MINUTES&apos;) {
+                input message: &quot;Public-Key was imported to GitLab?&quot;, ok: &quot;Continue&quot;
             }
         }
     }
@@ -163,8 +153,8 @@ def credentials_for_username(String username) {
 def createGlobalEnvironmentVariables(String key, String value) {
     Jenkins instance = Jenkins.getInstance();
 
-    DescribableList<NodeProperty<?>, NodePropertyDescriptor> globalNodeProperties = instance.getGlobalNodeProperties();
-    List<EnvironmentVariablesNodeProperty> envVarsNodePropertyList = globalNodeProperties.getAll(EnvironmentVariablesNodeProperty.class);
+    DescribableList&lt;NodeProperty&lt;?&gt;, NodePropertyDescriptor&gt; globalNodeProperties = instance.getGlobalNodeProperties();
+    List&lt;EnvironmentVariablesNodeProperty&gt; envVarsNodePropertyList = globalNodeProperties.getAll(EnvironmentVariablesNodeProperty.class);
 
     EnvironmentVariablesNodeProperty newEnvVarsNodeProperty = null;
     EnvVars envVars = null;
@@ -179,13 +169,7 @@ def createGlobalEnvironmentVariables(String key, String value) {
     envVars.put(key, value)
     instance.save()
 }</script>
-	<usingScriptText>true</usingScriptText>
     <sandbox>true</sandbox>
   </definition>
-  <publishers/>
-  <buildWrappers>
-    <hudson.plugins.ansicolor.AnsiColorBuildWrapper plugin="ansicolor@0.5.2">
-      <colorMapName>xterm</colorMapName>
-    </hudson.plugins.ansicolor.AnsiColorBuildWrapper>
-  </buildWrappers>
-</project>
+  <disabled>false</disabled>
+</flow-definition>
