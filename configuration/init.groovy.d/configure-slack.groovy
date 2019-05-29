@@ -7,7 +7,7 @@ import java.util.logging.Logger
 def slackBaseUrl = System.getenv('SLACK_BASE_URL')
 final def LOG = Logger.getLogger("LABS")
 
-if(slackBaseUrl != null) {
+if(slackBaseUrl != null && !slackBaseUrl.isEmpty()) {
 
   LOG.log(Level.INFO,  'Configuring slack...' )
   
