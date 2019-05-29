@@ -15,20 +15,20 @@ final def LOG = Logger.getLogger("LABS")
 
 def gitRepo = System.getenv('SHARED_LIB_REPO')
 
-// create jenkins creds for commiting tags back to repo. Can use Env vars on the running image or just insert below.
-LOG.log(Level.INFO,  'Create dummy-tech-user for shared-library checkout' )
-// create jenkins creds for commiting tags back to repo. Can use Env vars on the running image or just insert below.
-domain = Domain.global()
-store = Jenkins.instance.getExtensionList('com.cloudbees.plugins.credentials.SystemCredentialsProvider')[0].getStore()
-gitUsername = "cip_build_devops-expert-tech"
-gitPassword = "changeit"
-usernameAndPassword = new UsernamePasswordCredentialsImpl(
-  CredentialsScope.GLOBAL,
-  "jenkins-git-creds", "Dummy Git creds for Jenkins, will be changed by _initJenkins job",
-  gitUsername,
-  gitPassword
-)
-store.addCredentials(domain, usernameAndPassword)
+//// create jenkins creds for commiting tags back to repo. Can use Env vars on the running image or just insert below.
+//LOG.log(Level.INFO,  'Create dummy-tech-user for shared-library checkout' )
+//// create jenkins creds for commiting tags back to repo. Can use Env vars on the running image or just insert below.
+//domain = Domain.global()
+//store = Jenkins.instance.getExtensionList('com.cloudbees.plugins.credentials.SystemCredentialsProvider')[0].getStore()
+//gitUsername = "cip_build_devops-expert-tech"
+//gitPassword = "changeit"
+//usernameAndPassword = new UsernamePasswordCredentialsImpl(
+//  CredentialsScope.GLOBAL,
+//  "jenkins-git-creds", "Dummy Git creds for Jenkins, will be changed by _initJenkins job",
+//  gitUsername,
+//  gitPassword
+//)
+//store.addCredentials(domain, usernameAndPassword)
 
 
 
@@ -40,12 +40,7 @@ if(gitRepo?.trim()) {
   def libraryName = System.getenv('SHARED_LIB_NAME') ?: "labs-shared-library"
   def gitRef = System.getenv('SHARED_LIB_REF') ?: "master"
   def secretId = System.getenv('SHARED_LIB_SECRET') ?: ""
-
-  //append namespace to secret as it appears in Jenkins
-  if(secretId) {
-    secretId = System.getenv('OPENSHIFT_BUILD_NAMESPACE') + "-" + secretId
-  }
-
+  
   GitSCMSource source = new GitSCMSource( libraryName, gitRepo, secretId, "*", "", false);
   SCMSourceRetriever sourceRetriever = new SCMSourceRetriever(source);
 
