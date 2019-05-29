@@ -11,6 +11,24 @@
     <string>staticMethod java.lang.System getenv java.lang.String</string>
     <string>staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods execute java.lang.String</string>
     <string>staticMethod org.codehaus.groovy.runtime.ProcessGroovyMethods getText java.lang.Process</string>
+    <string>method com.cloudbees.plugins.credentials.CredentialsStore addCredentials com.cloudbees.plugins.credentials.domains.Domain com.cloudbees.plugins.credentials.Credentials</string>
+    <string>method com.cloudbees.plugins.credentials.SystemCredentialsProvider getStore</string>
+    <string>method hudson.model.Saveable save</string>
+    <string>method hudson.slaves.EnvironmentVariablesNodeProperty getEnvVars</string>
+    <string>method hudson.util.PersistedList getAll java.lang.Class</string>
+    <string>method jenkins.model.Jenkins getExtensionList java.lang.String</string>
+    <string>method jenkins.model.Jenkins getGlobalNodeProperties</string>
+    <string>new com.cloudbees.jenkins.plugins.sshcredentials.impl.BasicSSHUserPrivateKey com.cloudbees.plugins.credentials.CredentialsScope java.lang.String java.lang.String com.cloudbees.jenkins.plugins.sshcredentials.impl.BasicSSHUserPrivateKey$PrivateKeySource java.lang.String java.lang.String</string>
+    <string>new com.cloudbees.jenkins.plugins.sshcredentials.impl.BasicSSHUserPrivateKey$DirectEntryPrivateKeySource java.lang.String</string>
+    <string>new java.io.File java.lang.String</string>
+    <string>new java.lang.StringBuilder</string>
+    <string>staticField com.cloudbees.plugins.credentials.CredentialsScope GLOBAL</string>
+    <string>staticMethod com.cloudbees.plugins.credentials.domains.Domain global</string>
+    <string>staticMethod jenkins.model.Jenkins getInstance</string>
+    <string>staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods execute java.lang.String</string>
+    <string>staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods getText java.io.File java.lang.String</string>
+    <string>staticMethod org.codehaus.groovy.runtime.ProcessGroovyMethods consumeProcessOutput java.lang.Process java.lang.Appendable java.lang.Appendable</string>
+    <string>staticMethod org.codehaus.groovy.runtime.ProcessGroovyMethods waitForOrKill java.lang.Process long</string>
   </approvedSignatures>
   <aclApprovedSignatures/>
   <approvedClasspathEntries/>
