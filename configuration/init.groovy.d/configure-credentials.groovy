@@ -30,7 +30,7 @@ gitUsername = "cip_build_devops-expert-tech"
 gitPassword = "changeit"
 usernameAndPassword = new UsernamePasswordCredentialsImpl(
   CredentialsScope.GLOBAL,
-  "jenkins-git-creds", "Dummy Git creds for Jenkins, will be changed by _initJenkins job",
+  gitUsername, "Dummy Git creds for Jenkins, will be changed by _initJenkins job",
   gitUsername,
   gitPassword
 )
