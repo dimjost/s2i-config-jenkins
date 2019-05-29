@@ -30,7 +30,7 @@ if(gitRepo?.trim()) {
 
   LibraryConfiguration pipeline = new LibraryConfiguration(libraryName, sourceRetriever)
   pipeline.setDefaultVersion(gitRef)
-  pipeline.setImplicit(true)
+  pipeline.setImplicit(false) // If true, scripts will automatically have access to this library without needing to request it via @Library. and initJenkins job does not work because of git-user still not set
   sharedLibrary.get().setLibraries([pipeline])
 
   sharedLibrary.save()
