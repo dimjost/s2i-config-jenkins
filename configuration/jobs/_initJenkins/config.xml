@@ -59,7 +59,7 @@ node(&quot;master&quot;) {
     boolean sshKeyReplaced = false; // do not change it
     
     stage(&quot;Set Global Environment Variables&quot;) {
-        createGlobalEnvironmentVariables(&apos;abc&apos;, &apos;123&apos;)
+        createGlobalEnvironmentVariables(&apos;SEND_MAIL_GENERAL&apos;, &apos;true&apos;)
     }
     
     stage(&quot;Generate SSH-Key&quot;) {
