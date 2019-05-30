@@ -6,16 +6,17 @@ import java.util.logging.Level
 import java.util.logging.Logger
 
 final def LOG = Logger.getLogger("LABS")
-LOG.log(Level.INFO,  '########## Running configure-slack.groovy ##########')
+LOG.log(Level.INFO,  "########## Running configure-slack.groovy ##########")
 
 def slackBaseUrl = System.getenv('SLACK_BASE_URL')
+LOG.log(Level.INFO,  "slack.SLACK_BASE_URL: '${slackBaseUrl}'")
 
-if(slackBaseUrl != null) {
+if(slackBaseUrl != null && slackBaseUrl?.trim()) {
 
-  LOG.log(Level.INFO,  'Configuring slack...' )
+  LOG.log(Level.INFO,  "Configuring slack... for: ${slackBaseUrl}" )
   
   def slackToken = System.getenv('SLACK_TOKEN')
-  LOG.log(Level.INFO,  'slack.SLACK_TOKEN: ' + slackToken)
+  LOG.log(Level.INFO,  "slack.SLACK_TOKEN: ${slackToken}")
   
   def slackRoom = System.getenv('SLACK_ROOM')
   LOG.log(Level.INFO,  'slack.SLACK_ROOM: ' + slackRoom)
@@ -56,4 +57,7 @@ if(slackBaseUrl != null) {
   LOG.log(Level.INFO,  'Configured slack' )
 
   slack.save()
+}
+else {
+	LOG.log(Level.INFO,  "Skip Slack Configuring..." )
 }

@@ -13,7 +13,7 @@ import java.util.logging.Level
 import java.util.logging.Logger
 
 final def LOG = Logger.getLogger("LABS")
-LOG.log(Level.INFO,  '########## Running configure-shared-library.groovy ##########')
+LOG.log(Level.INFO,  "########## Running configure-shared-library.groovy ##########")
 
 def gitRepo = System.getenv('SHARED_LIB_REPO')
 
