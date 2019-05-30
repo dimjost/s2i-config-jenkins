@@ -1,3 +1,4 @@
+#!/usr/bin/env groovy
 import jenkins.model.Jenkins
 import jenkins.plugins.git.GitSCMSource;
 import org.jenkinsci.plugins.workflow.libs.SCMSourceRetriever;
@@ -12,25 +13,9 @@ import java.util.logging.Level
 import java.util.logging.Logger
 
 final def LOG = Logger.getLogger("LABS")
+LOG.log(Level.INFO,  '\nrunning configure-shared-library.groovy')
 
 def gitRepo = System.getenv('SHARED_LIB_REPO')
-
-//// create jenkins creds for commiting tags back to repo. Can use Env vars on the running image or just insert below.
-//LOG.log(Level.INFO,  'Create dummy-tech-user for shared-library checkout' )
-//// create jenkins creds for commiting tags back to repo. Can use Env vars on the running image or just insert below.
-//domain = Domain.global()
-//store = Jenkins.instance.getExtensionList('com.cloudbees.plugins.credentials.SystemCredentialsProvider')[0].getStore()
-//gitUsername = "cip_build_devops-expert-tech"
-//gitPassword = "changeit"
-//usernameAndPassword = new UsernamePasswordCredentialsImpl(
-//  CredentialsScope.GLOBAL,
-//  "jenkins-git-creds", "Dummy Git creds for Jenkins, will be changed by _initJenkins job",
-//  gitUsername,
-//  gitPassword
-//)
-//store.addCredentials(domain, usernameAndPassword)
-
-
 
 if(gitRepo?.trim()) {
   LOG.log(Level.INFO,  'Configuring shared library (implicit)...' )

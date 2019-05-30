@@ -1,11 +1,14 @@
+#!/usr/bin/env groovy
 import jenkins.model.Jenkins
 import net.sf.json.JSONObject
 
 import java.util.logging.Level
 import java.util.logging.Logger
 
-def slackBaseUrl = System.getenv('SLACK_BASE_URL')
 final def LOG = Logger.getLogger("LABS")
+LOG.log(Level.INFO,  '\nrunning configure-slack.groovy')
+
+def slackBaseUrl = System.getenv('SLACK_BASE_URL')
 
 if(slackBaseUrl != null && !slackBaseUrl.isEmpty()) {
 
