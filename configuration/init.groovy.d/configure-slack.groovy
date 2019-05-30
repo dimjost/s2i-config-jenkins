@@ -10,7 +10,7 @@ LOG.log(Level.INFO,  '########## Running configure-slack.groovy ##########')
 
 def slackBaseUrl = System.getenv('SLACK_BASE_URL')
 
-if(slackBaseUrl != null && slackBaseUrl?.trim()) {
+if(slackBaseUrl != null) {
 
   LOG.log(Level.INFO,  'Configuring slack...' )
   
