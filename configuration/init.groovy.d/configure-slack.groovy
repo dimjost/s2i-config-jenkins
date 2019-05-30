@@ -1,4 +1,3 @@
-#!/usr/bin/env groovy
 import jenkins.model.Jenkins
 import net.sf.json.JSONObject
 
@@ -7,6 +6,7 @@ import java.util.logging.Logger
 
 final def LOG = Logger.getLogger("LABS")
 LOG.log(Level.INFO,  "########## Running configure-slack.groovy ##########")
+LOG.log(Level.INFO,  'Running configure-slack.groovy')
 
 def slackBaseUrl = System.getenv('SLACK_BASE_URL')
 LOG.log(Level.INFO,  "slack.SLACK_BASE_URL: '${slackBaseUrl}'")
