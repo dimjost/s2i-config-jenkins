@@ -42,6 +42,18 @@
     <string>new hudson.tools.InstallSourceProperty java.util.List</string>
     <string>new hudson.tasks.Maven$MavenInstallation java.lang.String java.lang.String java.util.List</string>
     <string>method hudson.tasks.Maven$DescriptorImpl setInstallations hudson.tasks.Maven$MavenInstallation[]</string>
+    <string>new hudson.security.ProjectMatrixAuthorizationStrategy</string>
+    <string>method jenkins.model.Jenkins setAuthorizationStrategy hudson.security.AuthorizationStrategy</string>
+    <string>method hudson.tools.ToolDescriptor getInstallations</string>
+    <string>new hudson.plugins.groovy.GroovyInstaller java.lang.String</string>
+    <string>new hudson.plugins.groovy.GroovyInstallation java.lang.String java.lang.String java.util.List</string>
+    <string>method hudson.tools.ToolDescriptor setInstallations hudson.tools.ToolInstallation[]</string>
+    <string>new hudson.security.HudsonPrivateSecurityRealm boolean boolean hudson.security.captcha.CaptchaSupport</string>
+    <string>method jenkins.model.Jenkins setSecurityRealm hudson.security.SecurityRealm</string>
+    <string>method jenkins.model.Jenkins getSecurityRealm</string>
+    <string>method hudson.security.HudsonPrivateSecurityRealm createAccount java.lang.String java.lang.String</string>
+    <string>new hudson.security.ProjectMatrixAuthorizationStrategy</string>
+    <string>method jenkins.model.Jenkins setAuthorizationStrategy hudson.security.AuthorizationStrategy</string>
   </approvedSignatures>
   <aclApprovedSignatures/>
   <approvedClasspathEntries/>
