@@ -21,7 +21,7 @@ s2i build --loglevel 5 jenkins-master openshift/jenkins-2-centos7 jenkins-s2i:la
 
 The directory structure is dictated by [OpenShift Jenkins S2I image](https://docs.openshift.com/container-platform/3.5/using_images/other_images/jenkins.html#jenkins-as-s2i-builder). In particular:
 
-- [plugins.txt](plugins.txt) is used to install plugins during the S2I build. If you want the details, here is the [S2I assemble script](https://github.com/openshift/jenkins/blob/master/2/contrib/s2i/assemble), which calls the [install jenkins plugins script](https://github.com/openshift/jenkins/blob/master/2/contrib/jenkins/install-plugins.sh).
+- [plugins.txt](plugins.txt) is used to install plugins during the S2I build. If you want the details, here is the [S2I assemble script](https://github.com/dimjost/jenkins/blob/master/2/contrib/s2i/assemble), which calls the [install jenkins plugins script](https://github.com/dimjost/jenkins/blob/master/2/contrib/jenkins/install-plugins.sh).
 - files in the [configuration](configuration) directory will have comments describing exactly what they do
 
 ## Slack Integration
