@@ -1,4 +1,3 @@
-#!/usr/bin/env groovy
 import jenkins.model.*
 import groovy.json.JsonSlurper
 import hudson.plugins.sonar.SonarInstallation
@@ -11,7 +10,7 @@ import java.util.logging.Level
 import java.util.logging.Logger
 
 final def LOG = Logger.getLogger("LABS")
-LOG.log(Level.INFO,  "########## Running configure-sonarqube.groovy ##########")
+LOG.log(Level.INFO,  "\n########## Running configure-sonarqube.groovy ##########")
 
 def disableSonar = System.getenv("DISABLE_SONAR");
 if(disableSonar != null && disableSonar.toUpperCase() == "TRUE") {

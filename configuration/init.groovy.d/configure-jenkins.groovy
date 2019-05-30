@@ -1,4 +1,3 @@
-#!/usr/bin/env groovy
 import jenkins.model.*
 import com.smartcodeltd.jenkinsci.plugins.buildmonitor.BuildMonitorView
 import groovy.json.JsonSlurper
@@ -10,7 +9,7 @@ import org.csanchez.jenkins.plugins.kubernetes.KubernetesCloud
 import jenkins.model.JenkinsLocationConfiguration
 
 final def LOG = Logger.getLogger("LABS")
-LOG.log(Level.INFO,  "########## Running configure-jenkins.groovy ##########" )
+LOG.log(Level.INFO,  "\n########## Running configure-jenkins.groovy ##########" )
 
 try {
     // delete default OpenShift job

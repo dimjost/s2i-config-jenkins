@@ -1,4 +1,3 @@
-#!/usr/bin/env groovy
 import jenkins.model.Jenkins
 import jenkins.plugins.git.GitSCMSource;
 import org.jenkinsci.plugins.workflow.libs.SCMSourceRetriever;
@@ -13,7 +12,7 @@ import java.util.logging.Level
 import java.util.logging.Logger
 
 final def LOG = Logger.getLogger("LABS")
-LOG.log(Level.INFO,  "########## Running configure-shared-library.groovy ##########")
+LOG.log(Level.INFO,  "\n########## Running configure-shared-library.groovy ##########")
 
 def gitRepo = System.getenv('SHARED_LIB_REPO')
 
