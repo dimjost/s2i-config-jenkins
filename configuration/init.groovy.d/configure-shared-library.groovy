@@ -3,10 +3,6 @@ import jenkins.plugins.git.GitSCMSource;
 import org.jenkinsci.plugins.workflow.libs.SCMSourceRetriever;
 import org.jenkinsci.plugins.workflow.libs.LibraryConfiguration;
 
-import com.cloudbees.plugins.credentials.*
-import com.cloudbees.plugins.credentials.common.*
-import com.cloudbees.plugins.credentials.domains.*
-import com.cloudbees.plugins.credentials.impl.*
 
 import java.util.logging.Level
 import java.util.logging.Logger
@@ -25,6 +21,10 @@ if(gitRepo?.trim()) {
   def gitRef = System.getenv('SHARED_LIB_REF') ?: "master"
   def secretId = System.getenv('SHARED_LIB_SECRET') ?: ""
   
+  //append namespace to secret as it appears in Jenkins
+//  if(secretId) {
+//    secretId = System.getenv('OPENSHIFT_BUILD_NAMESPACE') + "-" + secretId
+//  }
   GitSCMSource source = new GitSCMSource( libraryName, gitRepo, secretId, "*", "", false);
   SCMSourceRetriever sourceRetriever = new SCMSourceRetriever(source);
 

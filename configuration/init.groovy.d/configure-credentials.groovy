@@ -24,6 +24,8 @@ LOG.log(Level.INFO,  "\n########## Running configure-credentials.groovy ########
 // create jenkins creds for commiting tags back to repo. Can use Env vars on the running image or just insert below.
 domain = Domain.global()
 store = Jenkins.instance.getExtensionList('com.cloudbees.plugins.credentials.SystemCredentialsProvider')[0].getStore()
+// gitUsername = System.getenv("GIT_USERNAME") ?: "jenkins-user"
+// gitPassword = System.getenv("GIT_PASSWORD") ?: "password-for-user"
 gitUsername = "cip_build_devops-expert-tech"
 gitPassword = "changeit"
 usernameAndPassword = new UsernamePasswordCredentialsImpl(
