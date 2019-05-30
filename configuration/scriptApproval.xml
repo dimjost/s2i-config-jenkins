@@ -35,6 +35,13 @@
     <string>staticMethod com.cloudbees.plugins.credentials.CredentialsMatchers filter java.util.List com.cloudbees.plugins.credentials.CredentialsMatcher</string>
     <string>method com.cloudbees.plugins.credentials.CredentialsStore removeCredentials com.cloudbees.plugins.credentials.domains.Domain com.cloudbees.plugins.credentials.Credentials</string>
     <string>new hudson.slaves.EnvironmentVariablesNodeProperty hudson.slaves.EnvironmentVariablesNodeProperty$Entry[]</string>
+    <string>staticMethod java.lang.System getenv</string>
+    <string>method jenkins.model.Jenkins getDescriptor java.lang.String</string>
+    <string>method hudson.tasks.Maven$DescriptorImpl getInstallations</string>
+    <string>new hudson.tasks.Maven$MavenInstaller java.lang.String</string>
+    <string>new hudson.tools.InstallSourceProperty java.util.List</string>
+    <string>new hudson.tasks.Maven$MavenInstallation java.lang.String java.lang.String java.util.List</string>
+    <string>method hudson.tasks.Maven$DescriptorImpl setInstallations hudson.tasks.Maven$MavenInstallation[]</string>
   </approvedSignatures>
   <aclApprovedSignatures/>
   <approvedClasspathEntries/>
