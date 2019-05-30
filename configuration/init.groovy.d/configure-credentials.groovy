@@ -19,7 +19,7 @@ import java.util.logging.Level
 import java.util.logging.Logger
 
 final def LOG = Logger.getLogger("LABS")
-LOG.log(Level.INFO,  '\nrunning configure-credentials.groovy' )
+LOG.log(Level.INFO,  '########## Running configure-credentials.groovy ##########' )
 
 // USE THE SAME GIT USER LIKE FOR SHARED-LIBRARYS
 // create jenkins creds for commiting tags back to repo. Can use Env vars on the running image or just insert below.
