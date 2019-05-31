@@ -59,6 +59,8 @@
     <script>method java.lang.Runnable run</script>
     <script>method jenkins.branch.MultiBranchProject getSources</script>
     <script>method jenkins.branch.BranchSource setBuildStrategies java.util.List</script>
+    <script>new java.util.HashMap</script>
+    <script>staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods contains java.lang.Object[] java.lang.Object</script>
   </approvedSignatures>
   <aclApprovedSignatures/>
   <approvedClasspathEntries/>
