@@ -54,6 +54,11 @@
     <string>method hudson.security.HudsonPrivateSecurityRealm createAccount java.lang.String java.lang.String</string>
     <string>new hudson.security.ProjectMatrixAuthorizationStrategy</string>
     <string>method jenkins.model.Jenkins setAuthorizationStrategy hudson.security.AuthorizationStrategy</string>
+    <script>method hudson.model.ItemGroup getAllItems java.lang.Class</script>
+    <script>method com.cloudbees.hudson.plugins.folder.computed.ComputedFolder getComputation</script>
+    <script>method java.lang.Runnable run</script>
+    <script>method jenkins.branch.MultiBranchProject getSources</script>
+    <script>method jenkins.branch.BranchSource setBuildStrategies java.util.List</script>
   </approvedSignatures>
   <aclApprovedSignatures/>
   <approvedClasspathEntries/>

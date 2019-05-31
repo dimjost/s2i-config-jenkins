@@ -5,7 +5,9 @@ sse-gateway:1.17
 blueocean-core-js:1.16.0
 blueocean-rest:1.16.0
 groovy:2.2
+pipeline-multibranch-defaults:2.0
 pipeline-utility-steps:2.3.0
+nested-view:1.17
 job-dsl:1.74
 blueocean-rest-impl:1.16.0
 scm-api:2.4.1
