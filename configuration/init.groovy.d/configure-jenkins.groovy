@@ -76,6 +76,6 @@ finally {
 // Git Identity
 println("Configuring Git Identity")
 namespace = System.getenv('OPENSHIFT_BUILD_NAMESPACE')
-def desc_git_scm = instance.getDescriptor("hudson.plugins.git.GitSCM")
+def desc_git_scm = Jenkins.instance.getDescriptor("hudson.plugins.git.GitSCM")
 desc_git_scm.setGlobalConfigName(namespace + "-" + hostname)
 desc_git_scm.setGlobalConfigEmail(hostname + "@" + namespace + ".com")
