@@ -55,7 +55,7 @@ node(&quot;master&quot;) {
     // boolean replaceSshKeyIfExist = false;
     String sshKeyPath = &quot;/var/lib/jenkins/id_rsa&quot;;
     String technicalUserName = &quot;cip_build_devops-expert-tech&quot;;
-    String technicalUserSshComment = &quot;cip_build_tech@devops-expert.de&quot;;
+    String technicalUserSshComment = &quot;OpenShift-Jenkins&quot;;
     boolean sshKeyReplaced = false; // do not change it
     
     stage(&quot;Set Global Environment Variables&quot;) {
@@ -138,12 +138,12 @@ node(&quot;master&quot;) {
         }
     }
     
-    stage(&quot;Execute _ConfigJobDSL&quot;) {
-    	build job: '_ConfigJobDSL', parameters: [booleanParam(name: 'ONLY_DELETE', value: false)]
+    stage(&quot;Execute _02_ConfigJobDSL&quot;) {
+    	build job: '_02_ConfigJobDSL', parameters: [booleanParam(name: 'ONLY_DELETE', value: false)]
     }
     
-    stage(&quot;Execute _ConfigJobDSL&quot;) {
-    	build job: '_BuildJobDSL', parameters: [booleanParam(name: 'ONLY_DELETE', value: false)]
+    stage(&quot;Execute _03_BuildJobDSL&quot;) {
+    	build job: '_03_BuildJobDSL', parameters: [booleanParam(name: 'ONLY_DELETE', value: false)]
     }
 }
 
