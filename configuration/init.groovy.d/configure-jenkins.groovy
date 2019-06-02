@@ -43,6 +43,11 @@ println("WORKAROUND FOR BUILD_URL ISSUE, see: https://issues.jenkins-ci.org/brow
 def hostname = System.getenv('HOSTNAME')
 println "hostname> $hostname"
 
+
+
+
+
+// TODO start: Abruf des Jenins-Hostnames sol solange ausgeführt werden, bis die Route im Openshift eingerichtet ist
 def sout = new StringBuilder(), serr = new StringBuilder()
 def proc = "oc get pod ${hostname} -o jsonpath={.metadata.labels.name}".execute()
 proc.consumeProcessOutput(sout, serr)
@@ -55,8 +60,15 @@ proc.consumeProcessOutput(sout2, serr2)
 proc.waitForOrKill(3000)
 println "out> $sout2 err> $serr2"
 
+def jenkinsUrl = "https://" + sout2.toString().trim()
+println "jenkinsUrl: $jenkinsUrl"
 def jlc = jenkins.model.JenkinsLocationConfiguration.get()
-jlc.setUrl("https://" + sout2.toString().trim())
+jlc.setUrl(jenkinsUrl)
+// TODO ende
+
+
+
+
 
 println("Configuring container cap for k8s, so pipelines won't hang when booting up slaves")
 
