@@ -60,6 +60,7 @@ node(&quot;master&quot;) {
     
     stage(&quot;Set Global Environment Variables&quot;) {
         createGlobalEnvironmentVariables(&apos;SEND_MAIL_GENERAL&apos;, &apos;true&apos;)
+        createGlobalEnvironmentVariables(&apos;JAVA_TOOL_OPTIONS&apos;, &apos;&apos;)
     }
     
     stage(&quot;Generate SSH-Key&quot;) {

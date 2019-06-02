@@ -12,15 +12,18 @@ def env = System.getenv()
 // MAVEN_VERSION=3.0.5
 // MAVEN_VERSION=3.0.5,3.2.5
 
+// TO automatic installation
 def maven_version = "3.6.1,3.6.0"
-def maven_version_list = maven_version.split(',')
+
+def maven_version_on_slave = "apache-maven-3.6.1"
+def maven_version_on_slave_list = maven_version_on_slave.split(',')
 
 // Constants
 def instance = Jenkins.getInstance()
 
 
-	// Maven
-	println "--> Configuring Maven"
+	// Maven automatic installation
+	println "Configuring Maven (automatic installation)"
 	def desc_MavenTool = instance.getDescriptor("hudson.tasks.Maven")
 	def maven_installations = desc_MavenTool.getInstallations()
 
@@ -59,6 +62,16 @@ def instance = Jenkins.getInstance()
 
 	desc_MavenTool.setInstallations((MavenInstallation[]) maven_installations)
 	desc_MavenTool.save()
+	
+	
+	println "Configuring Maven (installed on slave)"
+	maven_version_on_slave_list.eachWithIndex { version, index ->
+		installedMavenDescriptor = instance.getExtensionList(hudson.tasks.Maven.DescriptorImpl.class)[0];
+		installedMavenList = (installedMavenDescriptor.installations as List);
+		installedMavenList.add(new hudson.tasks.Maven.MavenInstallation(version, "/opt/maven/" + version, []));
+		installedMavenDescriptor.installations=installedMavenList
+		installedMavenDescriptor.save()
+	}
 
 	// Save the state
 	instance.save()
