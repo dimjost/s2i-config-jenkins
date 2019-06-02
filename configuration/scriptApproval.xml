@@ -54,13 +54,13 @@
     <string>method hudson.security.HudsonPrivateSecurityRealm createAccount java.lang.String java.lang.String</string>
     <string>new hudson.security.ProjectMatrixAuthorizationStrategy</string>
     <string>method jenkins.model.Jenkins setAuthorizationStrategy hudson.security.AuthorizationStrategy</string>
-    <script>method hudson.model.ItemGroup getAllItems java.lang.Class</script>
-    <script>method com.cloudbees.hudson.plugins.folder.computed.ComputedFolder getComputation</script>
-    <script>method java.lang.Runnable run</script>
-    <script>method jenkins.branch.MultiBranchProject getSources</script>
-    <script>method jenkins.branch.BranchSource setBuildStrategies java.util.List</script>
-    <script>new java.util.HashMap</script>
-    <script>staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods contains java.lang.Object[] java.lang.Object</script>
+    <string>method hudson.model.ItemGroup getAllItems java.lang.Class</string>
+    <string>method com.cloudbees.hudson.plugins.folder.computed.ComputedFolder getComputation</string>
+    <string>method java.lang.Runnable run</string>
+    <string>method jenkins.branch.MultiBranchProject getSources</string>
+    <string>method jenkins.branch.BranchSource setBuildStrategies java.util.List</string>
+    <string>new java.util.HashMap</string>
+    <string>staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods contains java.lang.Object[] java.lang.Object</string>
   </approvedSignatures>
   <aclApprovedSignatures/>
   <approvedClasspathEntries/>
