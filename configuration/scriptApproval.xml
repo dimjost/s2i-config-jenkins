@@ -61,6 +61,7 @@
     <string>method jenkins.branch.BranchSource setBuildStrategies java.util.List</string>
     <string>new java.util.HashMap</string>
     <string>staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods contains java.lang.Object[] java.lang.Object</string>
+    <string>new java.util.ArrayList</string>
   </approvedSignatures>
   <aclApprovedSignatures/>
   <approvedClasspathEntries/>

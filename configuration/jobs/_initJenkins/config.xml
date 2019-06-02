@@ -137,6 +137,14 @@ node(&quot;master&quot;) {
             }
         }
     }
+    
+    stage(&quot;Execute _ConfigJobDSL&quot;) {
+    	build job: '_ConfigJobDSL', parameters: [booleanParam(name: 'ONLY_DELETE', value: false)]
+    }
+    
+    stage(&quot;Execute _ConfigJobDSL&quot;) {
+    	build job: '_BuildJobDSL', parameters: [booleanParam(name: 'ONLY_DELETE', value: false)]
+    }
 }
 
 def credentials_for_username(String username) {
