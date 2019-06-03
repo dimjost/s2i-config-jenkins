@@ -44,7 +44,7 @@
       <submoduleCfg class="list"/>
       <extensions/>
     </scm>
-    <scriptPath>src/com/audi/cip/dsl/BuildJobDSL.groovy</scriptPath>
+    <scriptPath>src/de/devopsexpert/cip/dsl/BuildJobDSL.groovy</scriptPath>
     <lightweight>true</lightweight>
   </definition>
   <triggers/>
