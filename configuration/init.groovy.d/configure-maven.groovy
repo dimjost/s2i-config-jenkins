@@ -95,3 +95,4 @@ def instance = Jenkins.getInstance()
 	desc_MavenTool.setInstallations((MavenInstallation[]) maven_installations)
 	
 	desc.save()
+	inst.save()
