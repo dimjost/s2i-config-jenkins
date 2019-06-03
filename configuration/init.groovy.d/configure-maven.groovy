@@ -64,14 +64,14 @@ def instance = Jenkins.getInstance()
 	desc_MavenTool.save()
 	
 	
-//	println "Configuring Maven (installed on slave)"
-//	maven_version_on_slave_list.eachWithIndex { version, index ->
-//		installedMavenDescriptor = instance.getExtensionList(hudson.tasks.Maven.DescriptorImpl.class)[0];
-//		installedMavenList = (installedMavenDescriptor.installations as List);
-//		installedMavenList.add(new hudson.tasks.Maven.MavenInstallation(version, "/opt/maven/" + version, []));
-//		installedMavenDescriptor.installations=installedMavenList
-//		installedMavenDescriptor.save()
-//	}
+	println "Configuring Maven (installed on slave)"
+	maven_version_on_slave_list.eachWithIndex { version, index ->
+		installedMavenDescriptor = instance.getExtensionList(hudson.tasks.Maven.DescriptorImpl.class)[0];
+		installedMavenList = (installedMavenDescriptor.installations as List);
+		installedMavenList.add(new hudson.tasks.Maven.MavenInstallation(version, "/opt/maven/" + version, []));
+		installedMavenDescriptor.installations=installedMavenList
+		installedMavenDescriptor.save()
+	}
 
 	// Save the state
 	instance.save()
@@ -80,17 +80,17 @@ def instance = Jenkins.getInstance()
 	
 	
 	
-	def inst = Jenkins.getInstance()
-	def desc = inst.getDescriptor("hudson.tasks.Maven")
-	def installations = [];
-	
-	
-	println "Configuring Maven (installed on slave)"
-	maven_version_on_slave_list.eachWithIndex { version, index ->
-		def installation = new hudson.tasks.Maven.MavenInstallation(version, "/opt/maven/" + version, [])
-		installations.push(installation)
-	}
-	
-	desc_MavenTool.setInstallations((MavenInstallation[]) maven_installations)
-	
-	desc.save()
+//	def inst = Jenkins.getInstance()
+//	def desc = inst.getDescriptor("hudson.tasks.Maven")
+//	def installations = [];
+//	
+//	
+//	println "Configuring Maven (installed on slave)"
+//	maven_version_on_slave_list.eachWithIndex { version, index ->
+//		def installation = new hudson.tasks.Maven.MavenInstallation(version, "/opt/maven/" + version, [])
+//		installations.push(installation)
+//	}
+//	
+//	desc_MavenTool.setInstallations((MavenInstallation[]) maven_installations)
+//	
+//	desc.save()
