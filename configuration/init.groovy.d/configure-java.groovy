@@ -4,7 +4,7 @@ import hudson.tools.*
 
 
 
-def java_version_on_slave = "java-11-openjdk,oracleJdk10.0.2"
+def java_version_on_slave = "oracleJdk10.0.2"
 def java_version_on_slave_list = java_version_on_slave.split(',')
 
 def inst = Jenkins.getInstance()

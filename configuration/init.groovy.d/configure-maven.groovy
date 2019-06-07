@@ -16,7 +16,7 @@ def env = System.getenv()
 def maven_version = "3.6.0"
 def maven_version_list = maven_version.split(',')
 
-def maven_version_on_slave = "apache-maven-3.6.1,mvn3.6.1"
+def maven_version_on_slave = "mvn3.6.1"
 def maven_version_on_slave_list = maven_version_on_slave.split(',')
 
 // Constants
