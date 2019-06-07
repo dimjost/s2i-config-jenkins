@@ -4,7 +4,7 @@ import hudson.tools.*
 
 
 
-def java_version_on_slave = "java-11-openjdk"
+def java_version_on_slave = "java-11-openjdk,oracleJdk10.0.2"
 def java_version_on_slave_list = java_version_on_slave.split(',')
 
 def inst = Jenkins.getInstance()
@@ -16,7 +16,7 @@ println "Configuring Java (installed on slave)"
 java_version_on_slave_list.eachWithIndex { version, index ->
 	// def installer = new JDKInstaller(version, false)
 	// def installerProps = new InstallSourceProperty([installer])
-	def installation = new JDK(version, "/opt/java/" + version, [])
+	def installation = new JDK(version, "/opt/tools/java/" + version, [])
 	installations.push(installation)
 }
 
