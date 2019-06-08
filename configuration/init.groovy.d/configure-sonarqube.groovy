@@ -60,6 +60,8 @@ if (rc == 200) {
     def jsonParser = new JsonSlurper()
     def data = jsonParser.parseText(jsonBody)
     token = data.token
+	
+	LOG.log(Level.INFO, 'Tocken is: ' + token)
 
     // Add the SonarQube server config to Jenkins
     SonarInstallation sonarInst = new SonarInstallation(
