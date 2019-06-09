@@ -82,6 +82,8 @@
     <string>method hudson.plugins.sonar.SonarGlobalConfiguration setInstallations hudson.plugins.sonar.SonarInstallation[]</string>
     <string>method hudson.plugins.sonar.SonarGlobalConfiguration setBuildWrapperEnabled boolean</string>
     <string>new hudson.plugins.sonar.SonarInstallation java.lang.String java.lang.String java.lang.String hudson.util.Secret java.lang.String java.lang.String java.lang.String hudson.plugins.sonar.model.TriggersConfig</string>
+    <string>new hudson.plugins.sonar.SonarRunnerInstaller java.lang.String</string>
+    <string>new hudson.plugins.sonar.SonarRunnerInstallation java.lang.String java.lang.String java.util.List</string>
   </approvedSignatures>
   <aclApprovedSignatures/>
   <approvedClasspathEntries/>
