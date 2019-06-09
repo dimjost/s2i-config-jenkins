@@ -62,6 +62,26 @@
     <string>new java.util.HashMap</string>
     <string>staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods contains java.lang.Object[] java.lang.Object</string>
     <string>new java.util.ArrayList</string>
+    <string>method java.net.URL openConnection</string>
+    <string>method java.net.HttpURLConnection setRequestMethod java.lang.String</string>
+    <string>method java.net.URLConnection setDoOutput boolean</string>
+    <string>method java.net.URLConnection setRequestProperty java.lang.String java.lang.String</string>
+    <string>method java.lang.String getBytes</string>
+    <string>staticMethod org.codehaus.groovy.runtime.EncodingGroovyMethods encodeBase64 byte[]</string>
+    <string>method java.net.URLConnection getOutputStream</string>
+    <string>method java.lang.String getBytes java.lang.String</string>
+    <string>method java.io.OutputStream write byte[]</string>
+    <string>method java.net.HttpURLConnection getResponseCode</string>
+    <string>method groovy.lang.GString getBytes java.lang.String</string>
+    <string>method java.net.URLConnection getInputStream</string>
+    <string>staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods getText java.io.InputStream</string>
+    <string>new hudson.util.Secret java.lang.String</string>
+    <string>new org.jenkinsci.plugins.plaincredentials.impl.StringCredentialsImpl com.cloudbees.plugins.credentials.CredentialsScope java.lang.String java.lang.String hudson.util.Secret</string>
+    <string>new hudson.plugins.sonar.model.TriggersConfig</string>
+    <string>new hudson.plugins.sonar.SonarInstallation java.lang.String java.lang.String java.lang.String java.lang.String java.lang.String hudson.plugins.sonar.model.TriggersConfig java.lang.String</string>
+    <string>method hudson.plugins.sonar.SonarGlobalConfiguration setInstallations hudson.plugins.sonar.SonarInstallation[]</string>
+    <string>method hudson.plugins.sonar.SonarGlobalConfiguration setBuildWrapperEnabled boolean</string>
+    <string>new hudson.plugins.sonar.SonarInstallation java.lang.String java.lang.String java.lang.String hudson.util.Secret java.lang.String java.lang.String java.lang.String hudson.plugins.sonar.model.TriggersConfig</string>
   </approvedSignatures>
   <aclApprovedSignatures/>
   <approvedClasspathEntries/>
