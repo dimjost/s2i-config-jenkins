@@ -139,12 +139,16 @@ node(&quot;master&quot;) {
         }
     }
     
-    stage(&quot;Execute _02_ConfigJobDSL&quot;) {
-    	build job: '_02_ConfigJobDSL', parameters: [booleanParam(name: 'ONLY_DELETE', value: false)]
+    stage(&quot;Execute _02_configureSonarOnJenkins&quot;) {
+    	build job: '_02_configureSonarOnJenkins'
     }
     
-    stage(&quot;Execute _03_BuildJobDSL&quot;) {
-    	build job: '_03_BuildJobDSL', parameters: [booleanParam(name: 'ONLY_DELETE', value: false)]
+    stage(&quot;Execute _03_generateManagedFiles&quot;) {
+    	build job: '_03_generateManagedFiles', parameters: [booleanParam(name: 'ONLY_DELETE', value: false)]
+    }
+    
+    stage(&quot;Execute _04_generateJobs&quot;) {
+    	build job: '_04_generateJobs', parameters: [booleanParam(name: 'ONLY_DELETE', value: false)]
     }
 }
 
